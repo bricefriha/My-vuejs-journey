@@ -2,22 +2,50 @@
   <div id="app" class="small-container">
     <!-- Header Title -->
     <h1>Employees</h1>
-
+    <!-- Import our add form -->
+    <employee-form @add:employee="addEmployee" />
     <!-- Import our table -->
     <employee-table :employees="employees"/>
   </div>
 </template>
 
 <script>
+// Importing the EmployeeTable view
 import EmployeeTable  from '@/components/EmployeeTable.vue'
+
+// Importing the EmployeeTable view
+import EmployeeForm from '@/components/EmployeeForm.vue'
 
 export default {
   name: 'app',
   components: {
     EmployeeTable,
+    EmployeeForm,
   },
+
+// All the methods
+methods: {
+  // Add a new employee
+  addEmployee(employee) {
+
+    // Get the last 
+    const lastId = this.employees.length > 0
+                    ? this.employees[this.employees.length - 1].id
+                    : 0;
+
+    // Set a new id for the employee 
+    const id = lastId + 1;
+
+    // Set the new employe as a object
+    const newEmployee = { ...employee, id };
+
+    // Reload the employee list with the new employe 
+    this.employees = [...this.employees, newEmployee]
+  }
+},
   
 data() {
+    
     return {
       employees: [
         {

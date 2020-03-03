@@ -1,6 +1,7 @@
 <template>
   <div id="employee-table">
-    <table>
+    <p v-if="employees.length < 1" class="empty-table">No employees</p>
+    <table v-else>
       <thead>
         <tr>
           <th>Employee name</th>
@@ -11,6 +12,11 @@
         <tr v-for="employee in employees" :key="employee.id">
           <td>{{ employee.name }}</td>
           <td>{{ employee.email }}</td>
+          <td>
+            <button>Edit</button>
+            <!-- Button to delete an employe -->
+            <button @click="$emit('delete:employee', employee.id)">Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -18,12 +24,12 @@
 </template>
 
 <script>
-  export default {
-    name: 'employee-table',
-    props: {
-    employees: Array,
-  },
+export default {
+  name: "employee-table",
+  props: {
+    employees: Array
   }
+};
 </script>
 
 <style scoped>
@@ -40,5 +46,8 @@ li {
 }
 a {
   color: #42b983;
+}
+button {
+  margin: 0 0.5rem 0 0;
 }
 </style>

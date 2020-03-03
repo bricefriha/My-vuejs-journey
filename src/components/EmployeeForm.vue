@@ -3,6 +3,7 @@
     <form @submit.prevent="handleSubmit">
       <label>Employee name</label>
       <input
+        ref="first" 
         type="text"
         :class="{ 'has-error': submitting && invalidName }"
         v-model="employee.name"
@@ -58,11 +59,17 @@ export default {
       this.error = false;
       this.success = true;
       this.submitting = false;
+
+      // Focussing on the first input
+      this.$emit('add:employee', this.employee);
+      this.$refs.first.focus();
     },
     clearStatus() {
       this.success = false;
       this.error = false;
     }
+
+    
   },
   computed: {
     invalidName() {

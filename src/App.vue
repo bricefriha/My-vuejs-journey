@@ -5,7 +5,7 @@
     <!-- Import our add form -->
     <employee-form @add:employee="addEmployee" />
     <!-- Import our table -->
-    <employee-table :employees="employees"/>
+    <employee-table :employees="employees" @delete:employee="deleteEmployee"/>
   </div>
 </template>
 
@@ -25,6 +25,14 @@ export default {
 
 // All the methods
 methods: {
+  // Function to delete a employee
+  deleteEmployee(id) {
+    // Get all employees except the one we want to delete
+    this.employees = this.employees.filter(
+      employee => employee.id !== id
+    );
+  },
+
   // Add a new employee
   addEmployee(employee) {
 

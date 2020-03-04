@@ -5,7 +5,9 @@
     <!-- Import our add form -->
     <employee-form @add:employee="addEmployee" />
     <!-- Import our table -->
-    <employee-table :employees="employees" @delete:employee="deleteEmployee"/>
+    <employee-table :employees="employees" 
+                    @delete:employee="deleteEmployee"
+                    @edit:employee="editEmployee"/>
   </div>
 </template>
 
@@ -31,6 +33,12 @@ methods: {
     this.employees = this.employees.filter(
       employee => employee.id !== id
     );
+  },
+  // Function to edit an employee
+  editEmployee(id, updatedEmployee) {
+    this.employees = this.employees.map(employee =>
+      employee.id === id ? updatedEmployee : employee
+    )
   },
 
   // Add a new employee
